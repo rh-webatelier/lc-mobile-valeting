@@ -235,3 +235,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 .reviews--single .review__stars { text-align: center; }
 /* LC Valet: text brand mark */
 .brand__logo { width: 40px; height: 40px; border-radius: 9px; background: linear-gradient(150deg, var(--leaf), var(--leaf-600)); display:grid; place-items:center; color:#0d141b; font-family:var(--font-head); font-weight:700; font-size:1.05rem; flex-shrink:0; }
+
+/* faq__intro sticky disabled on mobile — avoids overlap on phones */
+@media (max-width:899px){ .faq__intro{ position: static; top: auto; } }

@@ -238,3 +238,57 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* faq__intro sticky disabled on mobile — avoids overlap on phones */
 @media (max-width:899px){ .faq__intro{ position: static; top: auto; } }
+
+/* ===== enhancements: mobile motion, hero, lightbox, forms (rh-webatelier) ===== */
+.btn, .scard, .channel { transition: transform .12s ease, box-shadow .2s ease, background .2s ease, filter .2s ease; }
+@media (hover: none){
+  .btn:active{ transform: scale(.96); }
+  .scard:active{ transform: scale(.985); }
+  .channel:active{ filter: brightness(1.08); }
+  .gallery__item:active img{ transform: scale(1.05); }
+  .faq__item summary:active{ opacity:.7; }
+}
+/* hamburger -> X */
+.nav-toggle span{ transition: transform .28s ease, opacity .2s ease; transform-origin: center; }
+.nav-toggle[aria-expanded="true"] span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+/* hero: subtle ken burns + staggered entrance */
+.hero__media img{ animation: kenburns 24s ease-out forwards; will-change: transform; }
+@keyframes kenburns{ from{ transform: scale(1.001); } to{ transform: scale(1.09); } }
+.hero .ribbon.reveal, .hero .eyebrow.reveal{ transition-delay: .08s; }
+.hero .hero__title.reveal{ transition-delay: .20s; }
+.hero .hero__lead.reveal{ transition-delay: .34s; }
+.hero .hero__actions.reveal{ transition-delay: .48s; }
+.hero .hero__badges.reveal{ transition-delay: .60s; }
+/* lazy image fade-in (only when JS active, so no-JS still shows images) */
+html.js img[loading="lazy"]{ opacity:0; transition: opacity .5s ease; }
+html.js img[loading="lazy"].is-loaded{ opacity:1; }
+::selection{ background: rgba(17,17,17,.9); color:#fff; }
+/* lightbox */
+.gallery__item img{ cursor: zoom-in; }
+.lightbox{ position:fixed; inset:0; z-index:2000; display:flex; align-items:center; justify-content:center;
+  background:rgba(8,10,12,.94); opacity:0; visibility:hidden; transition:opacity .3s ease, visibility .3s; padding:20px; }
+.lightbox.is-open{ opacity:1; visibility:visible; }
+.lightbox img{ max-width:min(94vw,1200px); max-height:86vh; width:auto; height:auto; border-radius:8px;
+  box-shadow:0 20px 60px rgba(0,0,0,.5); transform:scale(.96); transition:transform .3s ease; }
+.lightbox.is-open img{ transform:scale(1); }
+.lightbox__cap{ position:absolute; left:0; right:0; bottom:22px; text-align:center; color:#fff;
+  font-family:var(--font-body, sans-serif); font-size:.95rem; opacity:.92; padding:0 20px; }
+.lightbox__close{ position:absolute; top:16px; right:20px; width:44px; height:44px; border:none; cursor:pointer;
+  background:rgba(255,255,255,.14); color:#fff; border-radius:50%; font-size:1.7rem; line-height:1; }
+.lightbox__nav{ position:absolute; top:50%; transform:translateY(-50%); width:48px; height:48px; border:none;
+  cursor:pointer; background:rgba(255,255,255,.14); color:#fff; border-radius:50%; font-size:1.7rem; line-height:1; }
+.lightbox__nav--prev{ left:14px; } .lightbox__nav--next{ right:14px; }
+/* form success */
+.form-success{ text-align:center; padding:40px 24px; }
+.form-success__check{ width:66px; height:66px; margin:0 auto 18px; border-radius:50%; background:#2e7d32;
+  display:flex; align-items:center; justify-content:center; animation: popCheck .45s cubic-bezier(.2,1.2,.3,1) both; }
+.form-success__check svg{ width:34px; height:34px; stroke:#fff; stroke-width:3; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+.form-success h3{ margin:.3em 0 .2em; }
+@keyframes popCheck{ from{ transform:scale(.4); opacity:0; } to{ transform:scale(1); opacity:1; } }
+@media (prefers-reduced-motion: reduce){
+  .hero__media img{ animation:none; }
+  .lightbox, .lightbox img, html.js img[loading="lazy"]{ transition:none; }
+  .form-success__check{ animation:none; }
+}
